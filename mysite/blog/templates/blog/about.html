@@ -1,0 +1,77 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block other_head_file %}
+    <link href="{% static 'css/content_carousel.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block custom_css %}
+<style>
+.entry_content p {
+  margin-bottom: 5px !important;
+  color: grey;
+}
+</style>
+{% endblock %}
+
+{% block right_side %}
+<!-- Start Right Side -->
+<div id="right_side">
+  <div class="right_side">
+    <!-- Start Right Content -->
+    <div class="right_content">
+
+      <div class="h_title first">
+        <div class="left_title"><h1>关于我</h1><span></span></div>
+        <div class="right_title"><span class="highlight_yellow">个人简介</span></div>
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+
+      <div class="entry list wh_190_190">
+        <div class="entry_image">
+          <img src="{% static 'images/demo/avatar.jpg' %}" alt="" />
+        </div>
+        <div class="entry_text">
+          <div class="entry_title"><h4>Talus</h4></div>
+          <div class="entry_meta"><h6>HTML5游戏前端开发工程师</h6></div>
+          <div class="entry_content">
+            <p>2012年毕业于武汉科技大学，计算机应用技术专业。</p>
+            <p>2年C语言开发经验，3年HTML5游戏开发经验。</p>
+            <p>熟练使用egret游戏引擎，对unity3D引擎有一定了解。</p>
+            <p>熟练使用Typescript、javascript、python等语言，熟悉C、C++、C#等语言。</p>
+            <p>熟悉常用的数据结构、算法、设计模式。</p>
+            <p>熟悉HTTP，SOCKET等前后端交互方式。</p>
+            <p>熟悉游戏的性能优化，对工作流、资源管理等有一定的理解。</p>
+            <br />
+            <br />
+            <br />
+            <h5>最近作品</h5>
+            <ul class="ul_list">
+              {% for proj in my_proj %}
+                {% if proj.url == '#' %}
+                <li><a href="{{ proj.url }}" class="{{ proj.cls }} tooltip" title="{{ proj.title }}">《{{ proj.name }}》{{ proj.desc }}</a></li>
+                {% else %}
+                <li><a href="{{ proj.url }}" class="{{ proj.cls }} tooltip" title="{{ proj.title }}" target="_blank">《{{ proj.name }}》{{ proj.desc }}</a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+            <h5>Contacts</h5>
+            <p>123 Brinza Street<br />Chisinau, Moldova</p>
+            <p>Call : +373 005 595 005<br />Email : contact@mail.com</p>
+
+            <div class="cleaner"><!--Cleaner--></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="cleaner"><!--Cleaner--></div>
+    <!-- End Right Content -->
+  </div>
+  <div class="sub_block"><div class="sub_border"></div></div>
+</div>
+<!-- End Right Side -->
+{% endblock %}
+
+

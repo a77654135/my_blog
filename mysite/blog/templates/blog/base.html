@@ -1,0 +1,458 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>{{ SITE_NAME }}</title>
+    <link href="{% static 'css/reset.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/nivo-slider.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/jquery.fancybox-1.3.4.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/custom_css.css' %}" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.ratings.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.mousewheel.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.fancybox-1.3.4.pack.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.nivo.slider.pack.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/black_and_white.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/aplications.js' %}"></script>
+
+    {% block other_head_file %}{% endblock %}
+    
+    <!--[if IE 8]>
+      <link href="{% static 'css/ie/ie8.css' %}" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <!--[if IE 7]>
+      <link href="{% static 'css/ie/ie7.css' %}" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    {% block custom_css %}{% endblock %}
+  </head>
+  <body>
+  <div id="top_link" class="b_circle">Top of Page</div>
+    <div id="wrapper">
+      {% if SITE_TOP_NAV %}
+      <div id="nav_side">
+        <div class="nav_content">
+          <span class="phone">789-456-233</span>
+          <ul class="top_menu">
+            <li><a href="blog1.html">Movies</a></li>
+            <li><a href="blog2.html">Music</a></li>
+            <li><a href="blog3.html">Creative</a></li>
+            <li><a href="blog4.html">Fashion</a></li>
+            <li><a href="blog5.html">Art</a></li>
+          </ul>
+          <div class="cleaner"><!--Cleaner--></div>
+        </div>
+      </div>
+      {% endif %}
+      <div id="body">
+
+        {% if SITE_SOCIALS %}
+        <div class="socials">
+          <a class="b_circle b_twitter" href="#"></a>
+          <a class="b_circle b_facebook" href="#"></a>
+          <a class="b_circle b_rss" href="#"></a>
+        </div>
+        {% endif %}
+        <!-- Start Sidebar -->
+        <div id="left_side">
+          <div class="left_side">
+            <div class="left_content">
+              <!-- Start Sidebar Content -->
+              <a class="logo" href=""><img src="{% static 'images/logo.png' %}" alt="" /></a>
+              <div class="dots"></div>
+              <!-- Start Left Menu-->
+              <ul class="left_menu">
+                <li class="first">
+                  <a href="{% url 'index' %}">首页<span></span></a>
+                </li>
+                <li class="with_sub_menu">
+                  <a href="{% url 'category' 1 1 %}">我的博客<span></span></a>
+                  <div class="sub_menu">
+                    <div class="list">
+                      <ul>
+                        <li><a href="{% url 'category' 0 1 %}">全部</a></li>
+                        {% for category in category_list %}
+                        <li><a href="{% url 'category' category.id 1 %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    <div class="text">
+                      <p>最可怕的敌人，就是没有坚强的信念。 </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="with_sub_menu">
+                  <a href="{% url 'goodlink' 0 1 %}">文章搜集<span></span></a>
+                  <div class="sub_menu">
+                    <div class="list">
+                      <ul>
+                        <li><a href="{% url 'goodlink' 0 1 %}">全部</a></li>
+                        {% for category in category_list %}
+                        <li><a href="{% url 'goodlink' category.id 1 %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    <div class="text">
+                      <p>人是不可能十全十美的,只有不断取长补短,改正缺点,才能越来越完美。 </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="with_sub_menu">
+                  <a href="{% url 'picture' 0 1 %}">图片欣赏<span></span></a>
+                  <div class="sub_menu">
+                    <div class="list">
+                      <ul>
+                        <li><a href="{% url 'picture' 0 1 %}">全部</a></li>
+                        {% for category in picture_category_list %}
+                        <li><a href="{% url 'picture' category.id 1 %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    <div class="text">
+                      <p>你缺少的不是美丽，而是善于发现美丽的眼睛。真善美是些十分相近的品质，在前面的两种品质之上加一些难得而出色的情状，真就显得美，善也显得美。</p>
+                    </div>
+                  </div>
+                </li>
+                <li><a href="{% url 'about' %}">关于我<span></span></a></li>
+                <li><a href="{% url 'contacts' %}">联系我<span></span></a></li>
+              </ul>
+              <!-- End Left Menu-->
+
+              <div class="widget with_input">
+                <div class="widget_content">
+                  <form id="search" action="" />
+                    <p><input class="input_text" type="text" value="Search..." title="Search..." /></p>
+                  </form>
+                </div>
+              </div>
+
+              <div class="widget">
+                <h2>About Prima Template</h2>
+                <div class="widget_content">
+                  <p>Pellentesque eget ligula vel elit <a href="#">molestie aliquet</a> non a ante. Donec quis iaculis isi. Sed bibendumuris eget venenatis raviros auris vehicula mi, non ornare risus velt ut ante. Aliquam accumsan est sed ultricies ullamcorper, quam <a href="#">ligulaat bibendum</a> itae ante. Cras eget sapien sem elementum elit. Donec dolor est.</p>
+                </div>
+              </div>
+
+              <div class="widget arhives">
+                <h2>Arhives</h2>
+                <div class="widget_content">
+                  <ul>
+                    <li><a href="blog1.html">December 2011</a><span>5</span></li>
+                    <li><a href="blog1.html">November 2011</a><span>7</span></li>
+                    <li><a href="blog2.html">October 2011</a><span>2</span></li>
+                    <li><a href="blog3.html">September 2011</a><span>16</span></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="widget with_input">
+                <div class="widget_content">
+                  <form id="subscribe" action="" />
+                    <p><input class="input_text" type="text" value="Subscribe to our newsletter" title="Subscribe to our newsletter" /></p>
+                  </form>
+                </div>
+              </div>
+
+              <div class="widget twitter">
+                <h2>Our Twitter</h2>
+                <div class="widget_content">
+                  <ul>
+                    <li><p>Pellentesque eget ligula vel elit mestie non a ante. Donec quis iaculis nisi <a href="#">49 days ago</a></p></li>
+                    <li class="last"><p>Pellentesque eget ligula vel elit mestie non a ante. Donec quis iaculis nisi <a href="#">49 days ago</a></p></li>
+                  </ul>
+                  <p class="follow">Follow us on <a href="#">Twitter</a></p>
+                  <div class="cleaner"><!--Cleaner--></div>
+                </div>
+              </div>
+
+              <div class="widget flickr">
+                <h2>Our Flickr</h2>
+                <div class="widget_content">
+                  <ul>
+                    <li><a href="#"><img src="{% static 'images/demo/image_1.jpg' %}" alt="" /></a></li>
+                    <li><a href="#"><img src="{% static 'images/demo/image_2.jpg' %}" alt="" /></a></li>
+                    <li class="last"><a href="#"><img src="{% static 'images/demo/image_3.jpg' %}" alt="" /></a></li>
+                  </ul>
+                  <div class="cleaner"><!--Cleaner--></div>
+                </div>
+              </div>
+
+              <div class="widget services">
+                <h2>Recommended Services</h2>
+                <div class="widget_content">
+                  <ul>
+                    <li><a href="blog1.html">Vivamus in bibendum</a></li>
+                    <li><a href="blog2.html">Aenean purus nulla</a></li>
+                    <li><a href="blog3.html">Mollis a iaculis sit</a></li>
+                    <li><a href="blog4.html">Tristique ut magna</a></li>
+                    <li><a href="blog5.html">Sed gravida nisi non metus</a></li>
+                  </ul>
+                  <div class="cleaner"><!--Cleaner--></div>
+                </div>
+              </div>
+
+              <div class="widget">
+                <h2>Video</h2>
+                <div class="widget_content">
+                  <iframe width="260" height="146" src="http://www.youtube.com/embed/_iEgMaamFDI" frameborder="0" allowfullscreen=""></iframe>
+                </div>
+              </div>
+
+              <div class="widget referals">
+                <div class="widget_content">
+                  <a class="first" href="http://tutsplus.com?ref=Themepals"><img src="{% static 'images/tutorials_125x125_v1.gif' %}" alt="" /></a>
+                  <a href="http://graphicriver.net?ref=Themepals"><img src="{% static 'images/gr_125x125_v4.gif' %}" alt="" /></a>
+                  <a href="http://themeforest.net?ref=Themepals"><img src="{% static 'images/tf_260x120_v2.gif' %}" alt="" /></a>
+                  <div class="cleaner"><!--Cleaner--></div>
+                </div>
+              </div>
+
+              <div class="widget news">
+                <h2>News</h2>
+                <div class="widget_content">
+                  <div class="tabs">
+                    <ul class="tabNavigation">
+                      <li><a href="#first">Popular</a></li>
+                      <li><a href="#second">Recent</a></li>
+                      <li><a href="#third">Comments</a></li>
+                    </ul>
+                    <div id="first">
+                      <ul class="news">
+                        <li>
+                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_4.jpg' %}" alt="" /></a></div>
+                          <div class="title">
+                            <a href="blog_in.html">Aliquam accumsan estsed ultricies</a>
+                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                        <li>
+                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_5.jpg' %}" alt="" /></a></div>
+                          <div class="title">
+                            <a href="blog_in.html">Aliquam accumsan</a>
+                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                        <li class="last">
+                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_6.jpg' %}" alt="" /></a></div>
+                          <div class="title">
+                            <a href="blog_in.html">Aliquam accumsan</a>
+                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                      </ul>
+                      <div class="cleaner"><!--Cleaner--></div>
+                    </div>
+                    <div id="second">
+                      <ul class="news">
+                        <li>
+                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_7.jpg' %}" alt="" /></a></div>
+                          <div class="title">
+                            <a href="blog_in.html">Aliquam accumsan</a>
+                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                        <li>
+                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_8.jpg' %}" alt="" /></a></div>
+                          <div class="title">
+                            <a href="blog_in.html">Aliquam accumsan</a>
+                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                        <li class="last">
+                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_9.jpg' %}" alt="" /></a></div>
+                          <div class="title">
+                            <a href="blog_in.html">Aliquam accumsan estsed ultricies</a>
+                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div id="third">
+                      <ul class="news">
+                        <li>
+                          <div class="image"><img src="{% static 'images/no_avatar_small.png' %}" alt="" /></div>
+                          <div class="title">
+                            <div class="meta"><div>by Admin</div></div>
+                            <a href="blog_in.html#comment3">Aliquam accumsan</a>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                        <li>
+                          <div class="image"><img src="{% static 'images/no_avatar_small.png' %}" alt="" /></div>
+                          <div class="title">
+                            <div class="meta"><div>by Admin</div></div>
+                            <a href="blog_in.html#comment3">Aliquam accumsan estsed ultricies</a>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                        <li class="last">
+                          <div class="image"><img src="{% static 'images/no_avatar_small.png' %}" alt="" /></div>
+                          <div class="title">
+                            <div class="meta"><div>by Admin</div></div>
+                            <a href="blog_in.html#comment3">Aliquam accumsan</a>
+                          </div>
+                          <div class="cleaner"><!--Cleaner--></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p>&copy; 2012 Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
+              <div class="cleaner"><!--Cleaner--></div>
+              <!-- End Sidebar Content -->
+            </div>
+          </div>
+          <div class="sub_block"><div class="sub_border"></div></div>
+        </div>
+        <!-- End Sidebar -->
+
+        {% block right_side %}{% endblock %}
+
+        <!-- Start Footer -->
+        <div id="footer_side">
+          <div class="footer_side">
+            <div class="footer_content">
+              <!-- Start Footer Content -->
+              <div class="block_logo">
+                <a class="logo" href="index.html"><img src="{% static 'images/logo.png' %}" alt="" /></a>
+                <p>Pellentesque eget ligula vel lit molestie aliquet non a anteec quis iaculis isi. Sed bibenduris eget venenatis raviros.</p>
+              </div>
+
+              <div class="block_menu">
+                <h5>Recommended Services</h5>
+                <ul>
+                  <li><a href="portfolio1.html">Vivamus in bibendum</a></li>
+                  <li><a href="portfolio2.html">Aenean purus nulla</a></li>
+                  <li><a href="portfolio3.html">Mollis a iaculis sit</a></li>
+                  <li><a href="portfolio4.html">Vivamus in bibendum</a></li>
+                  <li><a href="portfolio5.html">Tristique ut magna</a></li>
+                  <li><a href="portfolio6.html">Sed gravida nisi non metus</a></li>
+                  <li><a href="portfolio7.html">Vivamus in bibendum</a></li>
+                </ul>
+              </div>
+
+              <div class="block_menu">
+                <h5>Categories</h5>
+                <ul class="category">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="blog1.html">Blog</a></li>
+                  <li><a href="portfolio1.html">Portfolio</a></li>
+                  <li><a href="gallery1.html">Gallery</a></li>
+                  <li><a href="features.html">Features</a></li>
+                  <li><a href="typography.html">Typography</a></li>
+                  <li><a href="our_team.html">Our Team</a></li>
+                  <li><a href="contacts.html">Contact Us</a></li>
+                </ul>
+                <ul class="category ul_right">
+                  <li><a href="blog1.html">Movies</a></li>
+                  <li><a href="blog2.html">Music</a></li>
+                  <li><a href="blog3.html">Creative</a></li>
+                  <li><a href="blog4.html">Fashion</a></li>
+                  <li><a href="blog5.html">Art</a></li>
+                </ul>
+              </div>
+              <div class="cleaner"><!--Cleaner--></div>
+              <!-- End Footer Content -->
+            </div>
+          </div>
+          <div class="sub_block"><div class="sub_border"></div></div>
+        </div>
+        <!-- End Footer -->
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+
+      {% if SITE_STYLEBAR %}
+      <div class="style_menu">
+        <div class="style_menu_content">
+          <h5>Colors</h5>
+          <ul class="change_color">
+            <li><a href="#" title="Boulder"><img src="{% static 'images/style_menu/Boulder.gif' %}" alt="Grey" /></a></li>
+            <li><a href="#" title="Santa_Fe"><img src="{% static 'images/style_menu/Santa_Fe.gif' %}" alt="" /></a></li>
+            <li><a href="#" title="Hillary"><img src="{% static 'images/style_menu/Hillary.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="#" title="Green_Smoke"><img src="{% static 'images/style_menu/Green_Smoke.gif' %}" alt="" /></a></li>
+            <li><a href="#" title="Husk"><img src="{% static 'images/style_menu/Husk.gif' %}" alt="" /></a></li>
+            <li><a href="#" title="Cinnabar"><img src="{% static 'images/style_menu/Cinnabar.gif' %}" alt="" /></a></li>
+            <li><a href="#" title="Di_Serria"><img src="{% static 'images/style_menu/Di_Serria.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="#" title="East_Side"><img src="{% static 'images/style_menu/East_Side.gif' %}" alt="" /></a></li>
+            <li><a href="#" title="Mauvelous"><img src="{% static 'images/style_menu/Mauvelous.gif' %}" alt="" /></a></li>
+            <li><a href="#" title="Viking"><img src="{% static 'images/style_menu/Viking.gif' %}" alt="" /></a></li>
+            <li><a href="#" title="Gulf_Stream"><img src="{% static 'images/style_menu/Gulf_Stream.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="#" title="Manatee"><img src="{% static 'images/style_menu/Manatee.gif' %}" alt="" /></a></li>
+          </ul>
+          <div class="cleaner"><!--Cleaner--></div>
+          <h5>Backgrounds</h5>
+          <ul class="change_background">
+            <li><a href="1.png"><img src="{% static 'images/style_menu/patterns/1_s.gif' %}" alt="" /></a></li>
+            <li><a href="2.png"><img src="{% static 'images/style_menu/patterns/2_s.gif' %}" alt="" /></a></li>
+            <li><a href="3.png"><img src="{% static 'images/style_menu/patterns/3_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="4.png"><img src="{% static 'images/style_menu/patterns/4_s.gif' %}" alt="" /></a></li>
+            <li><a href="5.png"><img src="{% static 'images/style_menu/patterns/5_s.gif' %}" alt="" /></a></li>
+            <li><a href="6.png"><img src="{% static 'images/style_menu/patterns/6_s.gif' %}" alt="" /></a></li>
+            <li><a href="7.png"><img src="{% static 'images/style_menu/patterns/7_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="8.png"><img src="{% static 'images/style_menu/patterns/8_s.gif' %}" alt="" /></a></li>
+            <li><a href="9.png"><img src="{% static 'images/style_menu/patterns/9_s.gif' %}" alt="" /></a></li>
+            <li><a href="10.png"><img src="{% static 'images/style_menu/patterns/10_s.gif' %}" alt="" /></a></li>
+            <li><a href="11.png"><img src="{% static 'images/style_menu/patterns/11_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="12.png"><img src="{% static 'images/style_menu/patterns/12_s.gif' %}" alt="" /></a></li>
+            <li><a href="13.png"><img src="{% static 'images/style_menu/patterns/13_s.gif' %}" alt="" /></a></li>
+            <li><a href="14.png"><img src="{% static 'images/style_menu/patterns/14_s.gif' %}" alt="" /></a></li>
+            <li><a href="15.png"><img src="{% static 'images/style_menu/patterns/15_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="16.png"><img src="{% static 'images/style_menu/patterns/16_s.gif' %}" alt="" /></a></li>
+            <li><a href="17.png"><img src="{% static 'images/style_menu/patterns/17_s.gif' %}" alt="" /></a></li>
+            <li><a href="18.png"><img src="{% static 'images/style_menu/patterns/18_s.gif' %}" alt="" /></a></li>
+            <li><a href="19.png"><img src="{% static 'images/style_menu/patterns/19_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="20.png"><img src="{% static 'images/style_menu/patterns/20_s.gif' %}" alt="" /></a></li>
+            <li><a href="21.png"><img src="{% static 'images/style_menu/patterns/21_s.gif' %}" alt="" /></a></li>
+            <li><a href="22.png"><img src="{% static 'images/style_menu/patterns/22_s.gif' %}" alt="" /></a></li>
+            <li><a href="23.png"><img src="{% static 'images/style_menu/patterns/23_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="24.png"><img src="{% static 'images/style_menu/patterns/24_s.gif' %}" alt="" /></a></li>
+            <li><a href="25.png"><img src="{% static 'images/style_menu/patterns/25_s.gif' %}" alt="" /></a></li>
+            <li><a href="26.png"><img src="{% static 'images/style_menu/patterns/26_s.gif' %}" alt="" /></a></li>
+            <li><a href="27.png"><img src="{% static 'images/style_menu/patterns/27_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="28.png"><img src="{% static 'images/style_menu/patterns/28_s.gif' %}" alt="" /></a></li>
+            <li><a href="29.png"><img src="{% static 'images/style_menu/patterns/29_s.gif' %}" alt="" /></a></li>
+            <li><a href="30.png"><img src="{% static 'images/style_menu/patterns/30_s.gif' %}" alt="" /></a></li>
+            <li><a href="31.png"><img src="{% static 'images/style_menu/patterns/31_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="32.png"><img src="{% static 'images/style_menu/patterns/32_s.gif' %}" alt="" /></a></li>
+            <li><a href="33.png"><img src="{% static 'images/style_menu/patterns/33_s.gif' %}" alt="" /></a></li>
+            <li><a href="34.png"><img src="{% static 'images/style_menu/patterns/34_s.gif' %}" alt="" /></a></li>
+            <li><a href="35.png"><img src="{% static 'images/style_menu/patterns/35_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="36.png"><img src="{% static 'images/style_menu/patterns/36_s.gif' %}" alt="" /></a></li>
+            <li><a href="37.png"><img src="{% static 'images/style_menu/patterns/37_s.gif' %}" alt="" /></a></li>
+            <li><a href="38.png"><img src="{% static 'images/style_menu/patterns/38_s.gif' %}" alt="" /></a></li>
+            <li><a href="39.png"><img src="{% static 'images/style_menu/patterns/39_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="40.png"><img src="{% static 'images/style_menu/patterns/40_s.gif' %}" alt="" /></a></li>
+            <li><a href="41.png"><img src="{% static 'images/style_menu/patterns/41_s.gif' %}" alt="" /></a></li>
+            <li><a href="42.png"><img src="{% static 'images/style_menu/patterns/42_s.gif' %}" alt="" /></a></li>
+            <li><a href="43.png"><img src="{% static 'images/style_menu/patterns/43_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="44.png"><img src="{% static 'images/style_menu/patterns/44_s.gif' %}" alt="" /></a></li>
+            <li><a href="45.png"><img src="{% static 'images/style_menu/patterns/45_s.gif' %}" alt="" /></a></li>
+            <li><a href="46.png"><img src="{% static 'images/style_menu/patterns/46_s.gif' %}" alt="" /></a></li>
+            <li><a href="47.png"><img src="{% static 'images/style_menu/patterns/47_s.gif' %}" alt="" /></a></li>
+            <li class="last"><a href="48.png"><img src="{% static 'images/style_menu/patterns/48_s.gif' %}" alt="" /></a></li>
+          </ul>
+          <div class="cleaner"><!--Cleaner--></div>
+        </div>
+        <div class="style_menu_button"></div>
+      </div>
+      {% endif %}
+    </div>
+
+    {% block custom_js %}{% endblock %}
+  </body>
+</html>

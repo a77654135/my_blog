@@ -1,0 +1,80 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+
+{% block right_side %}
+
+<!-- Start Right Side -->
+<div id="right_side">
+  <div class="right_side">
+    <!-- Start Right Content -->
+    <div class="right_content">
+
+      <div class="h_title first">
+        <div class="left_title"><h1>文章搜集</h1><span></span></div>
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+
+      <div class="block_menu" style="width:600px;">
+        <h5>{{ category_name }}</h5>
+        <ul>
+          {% for goodlink in goodlinks %}
+          {% if goodlink.is_recommend %}
+          <li><a href="{{ goodlink.url }}" target="_blank" class="recommend" >{{ goodlink.title }}</a></li>
+          {% else %}
+          <li><a href="{{ goodlink.url }}" target="_blank">{{ goodlink.title }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      {% if goodlinks.paginator.num_pages > 1 %}
+        <div class="pagination">
+          {% if goodlinks.number == 1 %}
+          <a href="#">First</a>
+          {% else %}
+          <a href="{% url 'goodlink' category_id 1 %}">First</a>
+          {% endif %}
+
+          {% if goodlinks.has_previous %}
+            <a href="{% url 'goodlink' category_id goodlinks.previous_page_number %}">{{ goodlinks.previous_page_number }}</a>
+          {% endif %}
+
+          <span class="current">{{ goodlinks.number }}</span>
+
+          {% if goodlinks.has_next %}
+            <a href="{% url 'goodlink' category_id goodlinks.next_page_number %}">{{ goodlinks.next_page_number }}</a>
+          {% endif %}
+
+          {% if goodlinks.number == goodlinks.paginator.num_pages %}
+          <a href="#">Last</a>
+          {% else %}
+          <a href="{% url 'goodlink' category_id goodlinks.paginator.num_pages %}">Last</a>
+          {% endif %}
+        </div>
+        {% endif %}
+
+
+    </div>
+    <div class="cleaner"><!--Cleaner--></div>
+    <!-- End Right Content -->
+  </div>
+  <div class="sub_block"><div class="sub_border"></div></div>
+</div>
+<!-- End Right Side -->
+
+{% endblock %}
+
+{% block custom_css %}
+<style>
+  .block_menu ul li a.recommend {
+    color:red;
+    font-weight: bold;
+  }
+.block_menu ul li a.recommend:hover {
+  color:pink;
+}
+</style>
+{% endblock %}
+
+

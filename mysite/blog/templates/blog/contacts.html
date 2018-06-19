@@ -1,0 +1,73 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block other_head_file %}
+<link href="{% static 'css/content_carousel.css' %}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{% static 'js/jquery.contentcarousel.js' %}"></script>
+{% endblock %}
+
+{% block right_side %}
+<!-- Start Right Side -->
+<div id="right_side">
+  <div class="right_side">
+    <!-- Start Right Content -->
+    <div class="right_content">
+      <div class="h_title first">
+        <div class="left_title"><h1>联系我</h1><span></span></div>
+        <div class="right_title"><span>快点联系我！！！</span></div>
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+
+      <div class="entry contacts">
+        <div class="blog_image">
+          <p><iframe width="610" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Chisinau,+Moldova&amp;aq=&amp;sll=47.026859,28.841551&amp;sspn=0.170138,0.445976&amp;ie=UTF8&amp;hq=&amp;hnear=Chisinau,+Moldova&amp;t=m&amp;z=12&amp;ll=47.026859,28.841551&amp;output=embed"></iframe></p>
+        </div>
+        <div class="blog_text">
+          <div class="entry_content">
+            <p>如果你想和我交朋友，如果你想和我共同进步，如果你想和我一起做一番事情，那么，快来联系我吧！！！</p>
+            <p> </p><p> </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry respond_form">
+        <div class="h_title first">
+          <div class="left_title"><h1>发送消息</h1><span></span></div>
+          <div class="right_title"><span></span></div>
+          <div class="cleaner"><!--Cleaner--></div>
+        </div>
+        {% if error %}
+        <ul class="ul_list cross" style="padding:0 19px;">
+          {% if error.subject.0 %}
+          <li><span class="highlight_red">{{ error.subject.0 }}</span></li>
+          {% endif %}
+          {% if error.name.0 %}
+          <li><span class="highlight_red">{{ error.name.0 }}</span></li>
+          {% endif %}
+          {% if error.email.0 %}
+          <li><span class="highlight_red">{{ error.email.0 }}</span></li>
+          {% endif %}
+          {% if error.content.0 %}
+          <li><span class="highlight_red">{{ error.content.0 }}</span></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+        <form action="{% url 'contacts' %}" method="post"/>
+          {% csrf_token %}
+          <p><input class="input_text" type="text" placeholder="Subject*" title="Subject*" name="subject" /></p>
+          <p><input class="input_text" type="text" placeholder="Name*" title="Name*" name="name" /></p>
+          <p><input class="input_text" type="text" placeholder="Email*" title="Email*" name="email" /></p>
+          <p><textarea rows="" cols="" placeholder="Comment..." title="Comment..." name="content"></textarea></p>
+          <p><input class="button small black" type="submit" value="提交"/></input></p>
+        </form>
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+    </div>
+
+    <div class="cleaner"><!--Cleaner--></div>
+    <!-- End Right Content -->
+  </div>
+  <div class="sub_block"><div class="sub_border"></div></div>
+</div>
+<!-- End Right Side -->
+{% endblock %}

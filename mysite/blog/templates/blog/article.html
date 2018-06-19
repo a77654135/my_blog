@@ -1,0 +1,152 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+
+    {% block other_head_file %}
+    <link href="{% static 'css/content_carousel.css' %}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{% static 'js/jquery.contentcarousel.js' %}"></script>
+    {% endblock %}
+
+  {% block right_side %}
+
+    <!-- Start Right Side -->
+    <div id="right_side">
+      <div class="right_side">
+        <!-- Start Right Content -->
+        <div class="right_content">
+          <div class="entry list wh_648_320 first">
+            <div class="h_title">
+              <div class="left_title"><h1>{{ article.category.name }}</h1><span></span></div>
+              <!--<div class="right_title"><span>{{ article.category.name }}</span></div>-->
+              <div class="cleaner"><!--Cleaner--></div>
+            </div>
+            {% if article.image %}
+            <div class="entry_image">
+              <div class="fade_image">
+                <div class="fade"><a class="lightbox" href="{{ article.image.url }}" title="{{ article.desc }}"></a><a class="link_to_post" href="{% url 'article' article.id %}"></a></div>
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" style="width:648px; height:320px;" />
+              </div>
+            </div>
+            {% endif %}
+            <div class="entry_text">
+              <div class="entry_meta meta_small">
+                <div class="entry_date">
+                  <span class="date_day">{{ article.date_publish.day }}</span>
+                  <span class="date_month">{{ article.date_publish|date:'N' }}</span>
+                </div>
+                <div class="entry_info">
+                  <p>by <a href="{% url 'article' article.id %}">{{ article.user.username }}</a></p>
+                  <p>in <a href="{% url 'article' article.id %}">Blog</a></p>
+                  <p><a href="{% url 'article' article.id %}">{{ article.comment_set.count }} comments</a></p>
+                </div>
+              </div>
+              <div class="entry_content">
+                <h3><a href="{% url 'article' article.id %}">{{ article.title }}</a></h3>
+                {{ article.content|safe }}
+              </div>
+            </div>
+          </div>
+          <div class="h_dotted"></div>
+
+          <div class="h_title">
+            <div class="left_title"><h1>Comments</h1><span></span></div>
+            <div class="right_title"><span>Maecenas iaculis mauris vitae pharetra vulputate ipsum urna</span></div>
+            <div class="cleaner"><!--Cleaner--></div>
+          </div>
+          <div class="comments" id="comments">
+            <div class="comment">
+              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+              <div class="user_text">
+                <span class="user_name">Kapacyko</span>
+                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
+                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+              </div>
+            </div>
+            <div class="comment">
+              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+              <div class="user_text">
+                <span class="user_name">Kapacyko</span>
+                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
+                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+              </div>
+            </div>
+            <div class="comment" id="comment3">
+              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+              <div class="user_text">
+                <span class="user_name">Kapacyko</span>
+                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
+                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+              </div>
+              <div class="children">
+                <div class="comment">
+                  <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+                  <div class="user_text">
+                    <span class="user_name">Kapacyko</span>
+                    <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
+                    <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+                  </div>
+                  <div class="children">
+                    <div class="comment">
+                      <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+                      <div class="user_text">
+                        <span class="user_name">Kapacyko</span>
+                        <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
+                        <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="comment">
+              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+              <div class="user_text">
+                <span class="user_name">Kapacyko</span>
+                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
+                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+              </div>
+            </div>
+            <div class="comment">
+              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+              <div class="user_text">
+                <span class="user_name">Kapacyko</span>
+                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
+                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+              </div>
+            </div>
+          </div>
+          <div class="h_dotted"></div>
+
+          <div class="respond_form">
+            <div class="h_title">
+              <div class="left_title"><h1>Leave a Comment</h1><span></span></div>
+              <div class="right_title"><span>Maecenas iaculis mauris vitae pharetra vulputate ipsum urna</span></div>
+              <div class="cleaner"><!--Cleaner--></div>
+            </div>
+            <form action="" />
+              <p><input class="input_text" type="text" value="Name*" title="Name*" /></p>
+              <p><input class="input_text" type="text" value="Email*" title="Email*" /></p>
+              <p><input class="input_text" type="text" value="Website" title="Website" /></p>
+              <p><textarea rows="" cols="" title="Comment...">Comment...</textarea></p>
+              <p><a href="#" class="button medium black"><span>Submit Comment</span></a></p>
+            </form>
+            <div class="cleaner"><!--Cleaner--></div>
+          </div>
+
+        </div>
+        <div class="cleaner"><!--Cleaner--></div>
+        <!-- End Right Content -->
+      </div>
+      <div class="sub_block"><div class="sub_border"></div></div>
+    </div>
+    <!-- End Right Side -->
+
+{% endblock %}
+
+{% block custom_css %}
+<style>
+  .entry_content {
+    min-height:200px;
+  }
+</style>
+{% endblock %}

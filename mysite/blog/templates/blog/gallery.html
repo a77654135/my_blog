@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block other_head_file %}
+  <link href="{% static 'css/content_carousel.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block right_side %}
+<!-- Start Right Side -->
+<div id="right_side">
+<div class="right_side">
+  <!-- Start Right Content -->
+  <div class="right_content">
+    <div class="h_title first">
+        <div class="left_title"><h1>图片欣赏</h1><span></span></div>
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+
+      <div class="block_menu" style="width:600px;">
+        <h5>{{ category_name }}</h5>
+      </div>
+    <div class="entry grid gallery wh_190_140 first">
+      <ul>
+        {% for picture in pictures %}
+        {% if forloop.last %}
+        <li class="last">
+        {% else %}
+        <li>
+        {% endif %}
+          <div class="entry_image">
+            <div class="fade_image">
+              <div class="fade"><a class="lightbox" href="{{ picture.image.url }}" title="{{ picture.title }}"></a><a class="link_to_post" href="#"></a></div>
+              <img src="{{ picture.image.url }}" alt="{{ picture.title }}" style="width:190px; height:140px;" />
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="cleaner"><!--Cleaner--></div>
+    </div>
+    
+    {% if pictures.paginator.num_pages > 1 %}
+    <div class="pagination">
+      {% if pictures.number == 1 %}
+      <a href="#">First</a>
+      {% else %}
+      <a href="{% url 'picture' category_id 1 %}">First</a>
+      {% endif %}
+
+      {% if pictures.has_previous %}
+        <a href="{% url 'picture' category_id pictures.previous_page_number %}">{{ pictures.previous_page_number }}</a>
+      {% endif %}
+
+      <span class="current">{{ pictures.number }}</span>
+
+      {% if pictures.has_next %}
+        <a href="{% url 'picture' category_id pictures.next_page_number %}">{{ pictures.next_page_number }}</a>
+      {% endif %}
+
+      {% if pictures.number == pictures.paginator.num_pages %}
+      <a href="#">Last</a>
+      {% else %}
+      <a href="{% url 'picture' category_id pictures.paginator.num_pages %}">Last</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+  </div>
+  <div class="cleaner"><!--Cleaner--></div>
+  <!-- End Right Content -->
+  </div>
+    <div class="sub_block"><div class="sub_border"></div></div>
+  </div>
+  <!-- End Right Side -->
+{% endblock %}
