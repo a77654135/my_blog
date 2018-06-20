@@ -52,11 +52,16 @@ class MyProjectAdmin(admin.ModelAdmin):
     search_fields = ('name', 'desc')
     list_editable = ('index',)
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('username', 'content', 'email', 'date_publish')
+    search_fields = ('username', 'content', 'email')
+    fields = ('username', 'content', 'email')
+
 
 admin.site.register(Tag)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Category)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Links)
 admin.site.register(Ad)
 admin.site.register(Message, MessageAdmin)

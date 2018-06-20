@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, get_object_or_404
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import View
 from django.conf import settings
 from blog.models import *
 from blog.models import Message as ModelMessage
 from blog.forms import Message as FormMessage
+from blog.forms import Comment as FormComment
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist,MultipleObjectsReturned
+from django.http import Http404,HttpResponseRedirect
 
 import logging
 
@@ -83,7 +89,8 @@ class ArticleView(View):
             article_id = 1
 
         article = get_object_or_404(Article, pk=article_id)
-        return render(request, 'blog/article.html', {"article": article})
+        comments = article.comment_set.all()
+        return render(request, 'blog/article.html', {"article": article, "comments": comments})
 
 class GoodlinkView(View):
 
@@ -160,4 +167,32 @@ class AboutView(View):
     def get(self, request):
         my_proj = MyProject.objects.all()
         return render(request, 'blog/about.html', {'my_proj': my_proj})
+
+class CommentView(View):
+    def post(self, request, article_id):
+        print "article_id:   {}".format(article_id)
+        try:
+            article_id = int(article_id)
+        except ValueError:
+            article_id = 1
+        form = FormComment(request.POST)
+        if form.is_valid():
+            article = get_object_or_404(Article, pk=article_id)
+            username=form.cleaned_data["username"]
+            try:
+                user = User.objects.get(username=username)
+            except ObjectDoesNotExist,MultipleObjectsReturned:
+                user = None
+            except Exception,e:
+                user = None
+            Comment.objects.create(
+                username=username,
+                email=form.cleaned_data["email"],
+                url=form.cleaned_data["url"],
+                content=form.cleaned_data["content"],
+                article=article,
+                user=user,
+            )
+        return HttpResponseRedirect(reverse('article', args=(article_id,)))
+
 

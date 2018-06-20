@@ -12,3 +12,11 @@ class Message(forms.Form):
     content = forms.CharField(max_length=1000, required=True, error_messages={
         "required": "内容不能为空"
     })
+
+class Comment(forms.Form):
+    username = forms.CharField(max_length=50, required=False)
+    email = forms.EmailField(max_length=100, required=False)
+    url = forms.URLField(max_length=100, required=False)
+    content = forms.CharField(max_length=500, required=True, error_messages={
+        "required": "内容不能为空"
+    })

@@ -46,89 +46,68 @@
               </div>
             </div>
           </div>
-          <div class="h_dotted"></div>
 
+          {% if comments|length %}
+          <div class="h_dotted"></div>
           <div class="h_title">
-            <div class="left_title"><h1>Comments</h1><span></span></div>
-            <div class="right_title"><span>Maecenas iaculis mauris vitae pharetra vulputate ipsum urna</span></div>
+            <div class="left_title"><h1>评论</h1><span></span></div>
             <div class="cleaner"><!--Cleaner--></div>
           </div>
+          {% endif %}
           <div class="comments" id="comments">
+            {% for comment in comments %}
             <div class="comment">
-              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+              {% if comment.user %}
+              <div class="user_avatar"><img src="{{ comment.user.avatar.url }}" alt="" /></div>
+              {% endif %}
               <div class="user_text">
-                <span class="user_name">Kapacyko</span>
-                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
-                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
+                {% if comment.user %}
+                <span class="user_name">{{ comment.user.username }}</span>
+                {% elif comment.username %}
+                <span class="user_name">{{ comment.username }}</span>
+                {% else %}
+                <span class="user_name">匿名用户</span>
+                {% endif %}
+                <!--<div class="entry_meta">{{ comment.date_publish|date:"N j, Y" }}<a href="#">Reply...</a></div>-->
+                <div class="entry_meta">{{ comment.date_publish|date:"N j, Y" }}</div>
+                <p>{{ comment.content }}</p>
               </div>
-            </div>
-            <div class="comment">
-              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
-              <div class="user_text">
-                <span class="user_name">Kapacyko</span>
-                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
-                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
-              </div>
-            </div>
-            <div class="comment" id="comment3">
-              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
-              <div class="user_text">
-                <span class="user_name">Kapacyko</span>
-                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
-                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
-              </div>
+              {% for child in comment.pid_set.all %}
               <div class="children">
                 <div class="comment">
+                  {% if child.user %}
                   <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
+                  {% endif %}
                   <div class="user_text">
-                    <span class="user_name">Kapacyko</span>
-                    <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
-                    <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
-                  </div>
-                  <div class="children">
-                    <div class="comment">
-                      <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
-                      <div class="user_text">
-                        <span class="user_name">Kapacyko</span>
-                        <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
-                        <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
-                      </div>
-                    </div>
+                    {% if child.user %}
+                    <span class="user_name">{{ child.user.username }}</span>
+                    {% elif child.username %}
+                    <span class="user_name">{{ comment.username }}</span>
+                    {% endif %}
+                    <div class="entry_meta">{{ child.date_publish|date:"N j, Y" }}<a href="#">Reply...</a></div>
+                    <p>{{ child.content }}</p>
                   </div>
                 </div>
               </div>
+              {% endfor %}
             </div>
-            <div class="comment">
-              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
-              <div class="user_text">
-                <span class="user_name">Kapacyko</span>
-                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
-                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
-              </div>
-            </div>
-            <div class="comment">
-              <div class="user_avatar"><img src="images/no_avatar_big.png" alt="" /></div>
-              <div class="user_text">
-                <span class="user_name">Kapacyko</span>
-                <div class="entry_meta">Feb 08, 2012<a href="#">Reply...</a></div>
-                <p>Pellentesque eget ligula vellit molestie aliquet non a anteec quis iaculis isi. Sed bibendumuris et venenatis raviros auris vehicula mi, non ornare risus velt ut ante.</p>
-              </div>
-            </div>
+            {% endfor %}
           </div>
           <div class="h_dotted"></div>
 
           <div class="respond_form">
             <div class="h_title">
-              <div class="left_title"><h1>Leave a Comment</h1><span></span></div>
-              <div class="right_title"><span>Maecenas iaculis mauris vitae pharetra vulputate ipsum urna</span></div>
+              <div class="left_title"><h1>恕我直言</h1><span></span></div>
+              <!--<div class="right_title"><span>Maecenas iaculis mauris vitae pharetra vulputate ipsum urna</span></div>-->
               <div class="cleaner"><!--Cleaner--></div>
             </div>
-            <form action="" />
-              <p><input class="input_text" type="text" value="Name*" title="Name*" /></p>
-              <p><input class="input_text" type="text" value="Email*" title="Email*" /></p>
-              <p><input class="input_text" type="text" value="Website" title="Website" /></p>
-              <p><textarea rows="" cols="" title="Comment...">Comment...</textarea></p>
-              <p><a href="#" class="button medium black"><span>Submit Comment</span></a></p>
+            <form action="{% url 'comment' article.id %}" method="post" />
+              {% csrf_token %}
+              <p><input class="input_text" type="text" placeholder="Name*" title="Name*" name="username" /></p>
+              <p><input class="input_text" type="text" placeholder="Email*" title="Email*" name="email"  /></p>
+              <p><input class="input_text" type="text" placeholder="Website" title="Website" name="url"  /></p>
+              <p><textarea rows="" cols="" placeholder="Comment..." title="Comment..." name="content" ></textarea></p>
+              <p><input type="submit" class="button medium black" value="提交"></input></p>
             </form>
             <div class="cleaner"><!--Cleaner--></div>
           </div>

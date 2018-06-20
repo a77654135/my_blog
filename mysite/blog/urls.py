@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^article/(?P<article_id>.*)/$', blogView.ArticleView.as_view(), name='article'),
     url(r'^goodlink/(?P<category_id>.*)/(?P<page_num>\d*)/$', blogView.GoodlinkView.as_view(), name='goodlink'),
     url(r'^picture/(?P<category_id>.*)/(?P<page_num>\d*)/$', blogView.PictureView.as_view(), name='picture'),
+    url(r'^comment/(?P<article_id>.*)/$', blogView.CommentView.as_view(), name='comment'),
     url(r'^contacts$', blogView.ContactsView.as_view(), name='contacts'),
     url(r'^about', blogView.AboutView.as_view(), name='about'),
 ]

@@ -77,7 +77,7 @@ class Article(models.Model):
 
 class Comment(models.Model):
     content = models.TextField(verbose_name=u'评论内容')
-    username = models.CharField(max_length=50, verbose_name=u'用户名', blank=True, null=True)
+    username = models.CharField(max_length=100, verbose_name=u'用户名', blank=True, null=True)
     email = models.EmailField(max_length=100, verbose_name=u'邮箱地址', blank=True, null=True)
     url = models.URLField(max_length=100, verbose_name=u'个人网址', blank=True, null=True)
     date_publish = models.DateTimeField(auto_now_add=True, verbose_name=u'发布时间')
@@ -87,9 +87,10 @@ class Comment(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = u'评论'
+        ordering = ['-date_publish', "-id"]
 
     def __unicode__(self):
-        return str(self.id)
+        return str(self.content)
 
 class Links(models.Model):
     title = models.CharField(max_length=50, verbose_name=u'标题')
