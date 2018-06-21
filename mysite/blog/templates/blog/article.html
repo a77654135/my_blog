@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
+{% load custom_markdown %}
 
 
     {% block other_head_file %}
@@ -44,7 +45,7 @@
               </div>
               <div class="entry_content">
                 <h3><a href="{% url 'article' article.id %}">{{ article.title }}</a></h3>
-                {{ article.content|safe }}
+                {{ article.content|custom_markdown }}
               </div>
             </div>
           </div>
