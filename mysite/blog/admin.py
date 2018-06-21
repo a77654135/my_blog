@@ -35,13 +35,15 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class GoodlinkAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url')
+    list_display = ('title', 'url', 'is_recommend')
     list_display_links = ('title', 'url')
     search_fields = ('title', 'url')
+    list_editable = ('is_recommend',)
 
 
 class PicturesAdmin(admin.ModelAdmin):
     list_display = ('title', "image")
+
 
 
 class MessageAdmin(admin.ModelAdmin):
