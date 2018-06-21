@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+
 class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatar/%Y/%m', default='avatar/default.png', verbose_name=u"用户头像", max_length=200, blank=True, null=True)
     qq = models.CharField(max_length=20, blank=True, null=True, verbose_name=u'QQ号码')
