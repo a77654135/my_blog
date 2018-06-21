@@ -15,6 +15,7 @@ from blog.forms import Comment as FormComment
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.core.exceptions import ObjectDoesNotExist,MultipleObjectsReturned
 from django.http import Http404,HttpResponseRedirect
+import markdown
 
 import logging
 
@@ -89,8 +90,14 @@ class ArticleView(View):
             article_id = 1
 
         article = get_object_or_404(Article, pk=article_id)
+        article.content = markdown.markdown(article.content, extensions=[
+                                     'markdown.extensions.extra',
+                                     'markdown.extensions.codehilite',
+                                     'markdown.extensions.toc',
+                                  ])
         comments = article.comment_set.all()
         return render(request, 'blog/article.html', {"article": article, "comments": comments})
+
 
 class GoodlinkView(View):
 

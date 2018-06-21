@@ -6,10 +6,12 @@ from django.db import models
 from models import *
 # Register your models here.
 
+
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'desc', 'category')
     list_display_links = ('title', 'desc')
     list_filter = ('title', 'desc')
+    search_fields = ('title', 'desc')
     fieldsets = (
         ('基础信息', {
             'fields': ('title', 'desc', 'content', 'image', 'user', 'tag', 'category')
@@ -19,12 +21,13 @@ class ArticleAdmin(admin.ModelAdmin):
         })
     )
 
-    class Media:
-        js = (
-            '/static/js/kindeditor/kindeditor-all-min.js',
-            '/static/js/kindeditor/lang/zh-CN.js',
-            '/static/js/kindeditor/config.js',
-        )
+    # class Media:
+    #     js = (
+    #         '/static/js/kindeditor/kindeditor-all-min.js',
+    #         '/static/js/kindeditor/lang/zh-CN.js',
+    #         '/static/js/kindeditor/config.js',
+    #     )
+
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'qq', 'mobile', 'email')
@@ -46,11 +49,13 @@ class MessageAdmin(admin.ModelAdmin):
     list_display_links = ('subject', 'name', 'email')
     readonly_fields = ('subject', 'name', 'email', 'content')
 
+
 class MyProjectAdmin(admin.ModelAdmin):
     list_display = ('name', 'desc', 'url', 'index')
     list_display_links = ('name', 'desc', 'url')
     search_fields = ('name', 'desc')
     list_editable = ('index',)
+
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('username', 'content', 'email', 'date_publish')

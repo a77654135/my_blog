@@ -4,6 +4,8 @@
 
     {% block other_head_file %}
     <link href="{% static 'css/content_carousel.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/pygments-css/github.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/pygments-css/code.css' %}" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="{% static 'js/jquery.contentcarousel.js' %}"></script>
     {% endblock %}
 
@@ -126,6 +128,12 @@
 <style>
   .entry_content {
     min-height:200px;
+  }
+  blockquote {
+    background: none;
+    color: #444;
+    padding: 0;
+    margin-bottom: 5px;
   }
 </style>
 {% endblock %}
