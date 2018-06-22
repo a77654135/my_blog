@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
@@ -31,6 +32,7 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Category(models.Model):
     name = models.CharField(max_length=30, verbose_name=u'分类名称')
     index = models.IntegerField(default=999, verbose_name=u'分类的排序')
@@ -46,14 +48,24 @@ class Category(models.Model):
 class ArticleManager(models.Manager):
     def distinct_date(self):
         distinct_date_list = []
+        ret_date_list = []
         date_list = self.values('date_publish')
 
         for date in date_list:
-            date = date['date_publish'].strftime('%Y/%m 文章存档')
-            if date not in distinct_date_list:
-                distinct_date_list.append(date)
+            date1 = date['date_publish'].strftime('%Y/%m 文章存档')
+            if date1 not in distinct_date_list:
+                distinct_date_list.append(date1)
+                count = self.filter(date_publish__month=6).count()
+                ret_date_list.append({"date": date, "count": count})
+                print date
+                print count
+                print date['date_publish'].year
+                print date['date_publish'].month
+                print "-------------------------"
 
-        return distinct_date_list
+        return ret_date_list
+
+
 
 class Article(models.Model):
     title = models.CharField(max_length=50, verbose_name=u'文章标题')
@@ -76,6 +88,7 @@ class Article(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class Comment(models.Model):
     content = models.TextField(verbose_name=u'评论内容')
     username = models.CharField(max_length=100, verbose_name=u'用户名', blank=True, null=True)
@@ -92,6 +105,7 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return str(self.content)
+
 
 class Links(models.Model):
     title = models.CharField(max_length=50, verbose_name=u'标题')
@@ -162,6 +176,7 @@ class Pictures(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class Message(models.Model):
     subject = models.CharField(max_length=200, verbose_name=u'标题')

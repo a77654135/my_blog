@@ -4,11 +4,12 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.db import models
 from models import *
+from django import forms
 # Register your models here.
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'desc', 'category')
+    list_display = ('title', 'desc', 'category', 'date_publish')
     list_display_links = ('title', 'desc')
     list_filter = ('title', 'desc')
     search_fields = ('title', 'desc')
@@ -41,9 +42,20 @@ class GoodlinkAdmin(admin.ModelAdmin):
     list_editable = ('is_recommend',)
 
 
+class PictureForm(forms.ModelForm):
+    class Meta:
+        model = Pictures
+        fields = ('title', 'image', 'category')
+        widgets = {
+            'image': forms.FileInput(attrs={
+                'multiple': True
+            })
+        }
+
+
 class PicturesAdmin(admin.ModelAdmin):
     list_display = ('title', "image")
-
+    form = PictureForm
 
 
 class MessageAdmin(admin.ModelAdmin):

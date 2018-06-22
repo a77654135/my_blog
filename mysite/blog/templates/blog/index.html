@@ -1,3 +1,115 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
 
+
+{% block right_side %}
+<!-- Start Right Side -->
+<div id="right_side">
+  <div class="right_side">
+    <!-- Start Right Content -->
+    <div class="right_content">
+      <!-- Start Slider -->
+      <div class="slider-wrapper theme-default">
+        <div id="slider" class="nivoSlider">
+          {% for article in hot_articles %}
+          <a href="{% url 'article' article.id %}"><img src="{{ article.image.url }}" alt="{{ article.title }}" title="#htmlcaption{{ forloop.counter }}" /></a>
+          {% endfor %}
+        </div>
+        {% for article in hot_articles %}
+        <div id="htmlcaption{{ forloop.counter }}" class="nivo-html-caption">
+          <div class="nivo-meta">
+            <span class="date">{{ article.date_publish|date:'N j, Y' }}</span>
+            <a class="commets" href="#">{{ article.comment.count|default:"0" }}</a>
+          </div>
+          <div class="slider-heading">
+            <h5>{{ article.title }}</h5>
+            <p>{{ article.content|safe|truncatewords:"20" }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- End Slider -->
+
+      <p class="text_sub_slider">生活不止眼前的苟且，<br />还有明天的苟且！</p>
+
+      <div class="h_dotted"></div>
+
+      <div class="entry grid gallery wh_162_162">
+        <div class="h_title">
+          <div class="left_title"><h1>最新照片</h1><span></span></div>
+          <div class="right_title"><span>要懂得欣赏周围的风景！</span></div>
+          <div class="cleaner"><!--Cleaner--></div>
+        </div>
+        <ul>
+          {% for pic in pictures %}
+          <li>
+            <div class="entry_image">
+              <div class="fade_image">
+                <div class="fade"><a class="lightbox" href="{{ pic.image.url }}" rel="gallery1" title="{{ pic.title }}"></a><a class="link_to_post" target="_blank" href="{{ pic.image.url }} "></a></div>
+                <img src="{{ pic.image.url }}" alt="" style="width:162px; height:162px;" />
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+      <div class="h_dotted"></div>
+
+      <div class="h_title">
+        <div class="left_title"><h1>最新文章</h1><span></span></div>
+        <div class="right_title"><span>夫以铜为镜,可以正衣冠;以古为镜,可以知兴替;以人为镜,可以明得失！</span></div>
+        <div class="cleaner"><!--Cleaner--></div>
+      </div>
+
+      {% for article in article_list %}
+      <div class="entry list wh_648_320">
+        {% if article.image %}
+        <div class="entry_image">
+          <a href="{% url 'article' article.id %}"><img src="{{ article.image.url }}" alt="" style="width:648px;height:320px;" /></a>
+        </div>
+        {% endif %}
+        <div class="entry_text">
+          <div class="entry_meta">
+            <div class="entry_date">
+              <span class="date_day">{{ article.date_publish|date:"j" }}</span>
+              <span class="date_month">{{ article.date_publish|date:"N" }}</span>
+            </div>
+            <a class="entry_comments" href="blog_in.html#comments"><span class="comments_count">{{ article.comment_set.all|default:"0" }}</span><span class="comments_text">comm</span></a>
+          </div>
+          <div class="entry_content">
+            <h3><a href="{% url 'article' article.id %}">{{ article.title }}</a></h3>
+            <p>{{ article.content|safe|truncatewords:"20" }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="h_dotted"></div>
+      {% endfor %}
+
+    </div>
+    <div class="cleaner"><!--Cleaner--></div>
+    <!-- End Right Content -->
+  </div>
+  <div class="sub_block"><div class="sub_border"></div></div>
+</div>
+<!-- End Right Side -->
+{% endblock %}
+
+{% block custom_css %}
+<style>
+  #slider a img {
+    width: 648px;
+    height: 360px;
+  }
+</style>
+{% endblock %}
+
+{% block custom_js %}
+<script type="text/javascript">
+  $('#slider').nivoSlider({
+    directionNav: false,
+    keyboardNav: true
+  });
+</script>
+{% endblock %}
+

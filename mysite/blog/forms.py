@@ -3,7 +3,7 @@
 from django import forms
 
 
-class Message(forms.Form):
+class MessageForm(forms.Form):
     subject = forms.CharField(max_length=200, required=True, error_messages={
         "required": "主题不能为空"
     })
@@ -13,10 +13,16 @@ class Message(forms.Form):
         "required": "内容不能为空"
     })
 
-class Comment(forms.Form):
+
+class CommentForm(forms.Form):
     username = forms.CharField(max_length=50, required=False)
     email = forms.EmailField(max_length=100, required=False)
     url = forms.URLField(max_length=100, required=False)
     content = forms.CharField(max_length=500, required=True, error_messages={
         "required": "内容不能为空"
     })
+
+
+
+
+

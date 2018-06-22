@@ -10,11 +10,12 @@ from django.views import View
 from django.conf import settings
 from blog.models import *
 from blog.models import Message as ModelMessage
-from blog.forms import Message as FormMessage
-from blog.forms import Comment as FormComment
+from blog.forms import MessageForm as FormMessage
+from blog.forms import CommentForm as FormComment
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.core.exceptions import ObjectDoesNotExist,MultipleObjectsReturned
 from django.http import Http404,HttpResponseRedirect
+from django.db.models import Q
 import markdown
 
 import logging
@@ -37,6 +38,7 @@ def global_settings(request):
     SITE_TOP_NAV = settings.SITE_TOP_NAV
 
     category_list = Category.objects.all()
+    date_list = Article.objects.distinct_date()
     picture_category_list = PictureCategory.objects.all()
 
     return locals()
@@ -45,7 +47,12 @@ def global_settings(request):
 class IndexView(View):
 
     def get(self, request):
-        return render(request, 'blog/index.html')
+        articles = Article.objects.all()
+        hot_articles = articles.filter(~Q(image=""))[:4]
+        article_list = articles[:5]
+        pictures = Pictures.objects.all()[:8]
+
+        return render(request, 'blog/index.html', locals())
 
 
 class CategoryView(View):
@@ -63,11 +70,11 @@ class CategoryView(View):
 
         if category_id == 0:
             category_name = u"全部"
-            article_list = Article.objects.all()
+            article_list = Article.objects.all().extra(where=['image is not null',])
         else:
             category = get_object_or_404(Category, pk=category_id)
             category_name = category.name
-            article_list = Article.objects.filter(category=category)
+            article_list = Article.objects.filter(category=category).extra(where=['image is not null',])
 
         paginator = Paginator(article_list, settings.CATEGORY_PER_PAGE)
         try:
@@ -90,11 +97,6 @@ class ArticleView(View):
             article_id = 1
 
         article = get_object_or_404(Article, pk=article_id)
-        # article.content = markdown.markdown(article.content, extensions=[
-        #                              'markdown.extensions.extra',
-        #                              'markdown.extensions.codehilite',
-        #                              'markdown.extensions.toc',
-        #                           ])
         comments = article.comment_set.all()
         return render(request, 'blog/article.html', {"article": article, "comments": comments})
 
@@ -158,6 +160,7 @@ class PictureView(View):
             pictures = paginator.page(paginator.num_pages)
 
         return render(request, 'blog/gallery.html', {'pictures': pictures, 'category_id': category_id, "category_name": category_name})
+
 
 class ContactsView(View):
     def get(self, request):

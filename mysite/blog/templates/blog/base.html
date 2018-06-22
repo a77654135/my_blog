@@ -134,20 +134,19 @@
               </div>
 
               <div class="widget">
-                <h2>About Prima Template</h2>
+                <h2>关于本站</h2>
                 <div class="widget_content">
-                  <p>Pellentesque eget ligula vel elit <a href="#">molestie aliquet</a> non a ante. Donec quis iaculis isi. Sed bibendumuris eget venenatis raviros auris vehicula mi, non ornare risus velt ut ante. Aliquam accumsan est sed ultricies ullamcorper, quam <a href="#">ligulaat bibendum</a> itae ante. Cras eget sapien sem elementum elit. Donec dolor est.</p>
+                  <p>本站是Talus于2018年6月创建，用于记录个人博客和生活状态的网站。</p>
                 </div>
               </div>
 
               <div class="widget arhives">
-                <h2>Arhives</h2>
+                <h2>文章归档</h2>
                 <div class="widget_content">
                   <ul>
-                    <li><a href="blog1.html">December 2011</a><span>5</span></li>
-                    <li><a href="blog1.html">November 2011</a><span>7</span></li>
-                    <li><a href="blog2.html">October 2011</a><span>2</span></li>
-                    <li><a href="blog3.html">September 2011</a><span>16</span></li>
+                    {% for date in date_list %}
+                    <li><a href="blog1.html">{{ date.date.date_publish|date:"M Y" }}</a><span>{{ date.count|default:"0" }}</span></li>
+                    {% endfor %}
                   </ul>
                 </div>
               </div>
