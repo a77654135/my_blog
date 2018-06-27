@@ -109,6 +109,7 @@ CACHES = {
     'file_cache': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': '/var/tmp/django_cache',
+        #'LOCATION': 'c:\foo\bar',#windows下的示例
         'TIMEOUT': 600,
         'OPTIONS': {
             'MAX_ENTRIES': 1000
