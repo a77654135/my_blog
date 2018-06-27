@@ -87,6 +87,37 @@ DATABASES = {
     }
 }
 
+#缓存
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': [
+            '127.0.0.1:11211',
+        ]
+    },
+    'default1': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'db': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table_name',
+        'TIMEOUT': 600,
+        'OPTIONS': {
+            'MAX_ENTRIES': 2000
+        }
+    },
+    'file_cache': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+        'TIMEOUT': 600,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

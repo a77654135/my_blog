@@ -16,6 +16,9 @@ from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.core.exceptions import ObjectDoesNotExist,MultipleObjectsReturned
 from django.http import Http404,HttpResponseRedirect
 from django.db.models import Q
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
 import markdown
 
 import logging
@@ -44,7 +47,7 @@ def global_settings(request):
 
     return locals()
 
-
+@method_decorator(cache_page(60 * 5), name='dispatch')
 class IndexView(View):
 
     def get(self, request):
