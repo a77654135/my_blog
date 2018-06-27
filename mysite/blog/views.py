@@ -40,6 +40,7 @@ def global_settings(request):
     category_list = Category.objects.all()
     date_list = Article.objects.distinct_date()
     picture_category_list = PictureCategory.objects.all()
+    link_list = GoodLink.objects.filter(is_recommend=True)[:5]
 
     return locals()
 
@@ -87,6 +88,35 @@ class CategoryView(View):
             articles = paginator.page(paginator.num_pages)
 
         return render(request, 'blog/blog.html', {'articles': articles, 'category_id': category_id, 'category_name': category_name})
+
+class CategoryDateView(View):
+
+    def get(self, request, year, month, page_num=0):
+        try:
+            page_num = int(page_num)
+        except ValueError,e:
+            page_num = 1
+        except Exception, e:
+            page_num = 1
+
+        try:
+            article_list = Article.objects.filter(date_publish__year=year, date_publish__month=month)
+        except Exception:
+            return Http404()
+
+        category_name = u"{}年{}月".format(year, month)
+
+        paginator = Paginator(article_list, settings.CATEGORY_PER_PAGE)
+        try:
+            articles = paginator.page(page_num)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            articles = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            articles = paginator.page(paginator.num_pages)
+
+        return render(request, 'blog/blog.html', {'articles': articles, 'category_name': category_name, "year": year, "month": month})
 
 class ArticleView(View):
 

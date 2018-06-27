@@ -48,6 +48,7 @@
           <div class="h_dotted"></div>
           {% endfor %}
 
+          {% if category_id %}
           {% if articles.paginator.num_pages > 1 %}
           <div class="pagination">
             {% if articles.number == 1 %}
@@ -72,6 +73,33 @@
             <a href="{% url 'category' category_id articles.paginator.num_pages %}">Last</a>
             {% endif %}
           </div>
+          {% endif %}
+          {% elif year %}
+          {% if articles.paginator.num_pages > 1 %}
+          <div class="pagination">
+            {% if articles.number == 1 %}
+            <a href="#">First</a>
+            {% else %}
+            <a href="{% url 'category_date' year month 1 %}">First</a>
+            {% endif %}
+
+            {% if articles.has_previous %}
+              <a href="{% url 'category_date' year month articles.previous_page_number %}">{{ articles.previous_page_number }}</a>
+            {% endif %}
+
+            <span class="current">{{ articles.number }}</span>
+
+            {% if articles.has_next %}
+              <a href="{% url 'category_date' year month articles.next_page_number %}">{{ articles.next_page_number }}</a>
+            {% endif %}
+
+            {% if articles.number == articles.paginator.num_pages %}
+            <a href="#">Last</a>
+            {% else %}
+            <a href="{% url 'category_date' year month articles.paginator.num_pages %}">Last</a>
+            {% endif %}
+          </div>
+          {% endif %}
           {% endif %}
 
         </div>

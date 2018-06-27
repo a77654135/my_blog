@@ -57,12 +57,6 @@ class ArticleManager(models.Manager):
                 distinct_date_list.append(date1)
                 count = self.filter(date_publish__month=6).count()
                 ret_date_list.append({"date": date, "count": count})
-                print date
-                print count
-                print date['date_publish'].year
-                print date['date_publish'].month
-                print "-------------------------"
-
         return ret_date_list
 
 

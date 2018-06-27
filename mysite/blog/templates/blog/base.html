@@ -39,13 +39,13 @@
       {% if SITE_TOP_NAV %}
       <div id="nav_side">
         <div class="nav_content">
-          <span class="phone">789-456-233</span>
+          <span class="phone">000-000-000</span>
           <ul class="top_menu">
-            <li><a href="blog1.html">Movies</a></li>
-            <li><a href="blog2.html">Music</a></li>
-            <li><a href="blog3.html">Creative</a></li>
-            <li><a href="blog4.html">Fashion</a></li>
-            <li><a href="blog5.html">Art</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">Music</a></li>
+            <li><a href="#">Creative</a></li>
+            <li><a href="#">Fashion</a></li>
+            <li><a href="#">Art</a></li>
           </ul>
           <div class="cleaner"><!--Cleaner--></div>
         </div>
@@ -145,7 +145,7 @@
                 <div class="widget_content">
                   <ul>
                     {% for date in date_list %}
-                    <li><a href="blog1.html">{{ date.date.date_publish|date:"M Y" }}</a><span>{{ date.count|default:"0" }}</span></li>
+                    <li><a href="{% url 'category_date' date.date.date_publish.year date.date.date_publish.month 1 %}">{{ date.date.date_publish|date:"M Y" }}</a><span>{{ date.count|default:"0" }}</span></li>
                     {% endfor %}
                   </ul>
                 </div>
@@ -159,159 +159,26 @@
                 </div>
               </div>
 
-              <div class="widget twitter">
-                <h2>Our Twitter</h2>
-                <div class="widget_content">
-                  <ul>
-                    <li><p>Pellentesque eget ligula vel elit mestie non a ante. Donec quis iaculis nisi <a href="#">49 days ago</a></p></li>
-                    <li class="last"><p>Pellentesque eget ligula vel elit mestie non a ante. Donec quis iaculis nisi <a href="#">49 days ago</a></p></li>
-                  </ul>
-                  <p class="follow">Follow us on <a href="#">Twitter</a></p>
-                  <div class="cleaner"><!--Cleaner--></div>
-                </div>
-              </div>
-
-              <div class="widget flickr">
-                <h2>Our Flickr</h2>
-                <div class="widget_content">
-                  <ul>
-                    <li><a href="#"><img src="{% static 'images/demo/image_1.jpg' %}" alt="" /></a></li>
-                    <li><a href="#"><img src="{% static 'images/demo/image_2.jpg' %}" alt="" /></a></li>
-                    <li class="last"><a href="#"><img src="{% static 'images/demo/image_3.jpg' %}" alt="" /></a></li>
-                  </ul>
-                  <div class="cleaner"><!--Cleaner--></div>
-                </div>
-              </div>
-
               <div class="widget services">
-                <h2>Recommended Services</h2>
+                <h2>文章推荐</h2>
                 <div class="widget_content">
                   <ul>
-                    <li><a href="blog1.html">Vivamus in bibendum</a></li>
-                    <li><a href="blog2.html">Aenean purus nulla</a></li>
-                    <li><a href="blog3.html">Mollis a iaculis sit</a></li>
-                    <li><a href="blog4.html">Tristique ut magna</a></li>
-                    <li><a href="blog5.html">Sed gravida nisi non metus</a></li>
+                    {% for link in link_list %}
+                    <li><a href="{{ link.url }}" target="_blank">{{ link.title }}</a></li>
+                    {% endfor %}
                   </ul>
                   <div class="cleaner"><!--Cleaner--></div>
                 </div>
               </div>
 
               <div class="widget">
-                <h2>Video</h2>
+                <h2>视频</h2>
                 <div class="widget_content">
-                  <iframe width="260" height="146" src="http://www.youtube.com/embed/_iEgMaamFDI" frameborder="0" allowfullscreen=""></iframe>
+                  <iframe width="260" height="146" src="http://58.216.103.20/656D7C8AE03C8335E636644BD/03000A010059C9DA406E5D0000000136290E7B-2E45-4762-1C43-9E3DD5BFFFB5.mp4?ccode=050F&duration=218&expire=18000&psid=b7cd145a634727806630855b7cb1c192&sp=&ups_client_netip=6551e1e5&ups_ts=1530071429&ups_userid=&utid=7DaiE2pJ6lcCAWVR4eWvRdad&vid=XMjE5MDI4OTU1Ng%3D%3D&vkey=Bc73b0240a5eb98a646eac8e85d1e5c47" frameborder="0" allowfullscreen=""></iframe>
                 </div>
               </div>
 
-              <div class="widget referals">
-                <div class="widget_content">
-                  <a class="first" href="http://tutsplus.com?ref=Themepals"><img src="{% static 'images/tutorials_125x125_v1.gif' %}" alt="" /></a>
-                  <a href="http://graphicriver.net?ref=Themepals"><img src="{% static 'images/gr_125x125_v4.gif' %}" alt="" /></a>
-                  <a href="http://themeforest.net?ref=Themepals"><img src="{% static 'images/tf_260x120_v2.gif' %}" alt="" /></a>
-                  <div class="cleaner"><!--Cleaner--></div>
-                </div>
-              </div>
-
-              <div class="widget news">
-                <h2>News</h2>
-                <div class="widget_content">
-                  <div class="tabs">
-                    <ul class="tabNavigation">
-                      <li><a href="#first">Popular</a></li>
-                      <li><a href="#second">Recent</a></li>
-                      <li><a href="#third">Comments</a></li>
-                    </ul>
-                    <div id="first">
-                      <ul class="news">
-                        <li>
-                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_4.jpg' %}" alt="" /></a></div>
-                          <div class="title">
-                            <a href="blog_in.html">Aliquam accumsan estsed ultricies</a>
-                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                        <li>
-                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_5.jpg' %}" alt="" /></a></div>
-                          <div class="title">
-                            <a href="blog_in.html">Aliquam accumsan</a>
-                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                        <li class="last">
-                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_6.jpg' %}" alt="" /></a></div>
-                          <div class="title">
-                            <a href="blog_in.html">Aliquam accumsan</a>
-                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                      </ul>
-                      <div class="cleaner"><!--Cleaner--></div>
-                    </div>
-                    <div id="second">
-                      <ul class="news">
-                        <li>
-                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_7.jpg' %}" alt="" /></a></div>
-                          <div class="title">
-                            <a href="blog_in.html">Aliquam accumsan</a>
-                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                        <li>
-                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_8.jpg' %}" alt="" /></a></div>
-                          <div class="title">
-                            <a href="blog_in.html">Aliquam accumsan</a>
-                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                        <li class="last">
-                          <div class="image"><a href="blog_in.html"><img src="{% static 'images/demo/image_9.jpg' %}" alt="" /></a></div>
-                          <div class="title">
-                            <a href="blog_in.html">Aliquam accumsan estsed ultricies</a>
-                            <div class="meta">Oct 05, 2011 | <a href="blog_in.html#comments">5 comments</a></div>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div id="third">
-                      <ul class="news">
-                        <li>
-                          <div class="image"><img src="{% static 'images/no_avatar_small.png' %}" alt="" /></div>
-                          <div class="title">
-                            <div class="meta"><div>by Admin</div></div>
-                            <a href="blog_in.html#comment3">Aliquam accumsan</a>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                        <li>
-                          <div class="image"><img src="{% static 'images/no_avatar_small.png' %}" alt="" /></div>
-                          <div class="title">
-                            <div class="meta"><div>by Admin</div></div>
-                            <a href="blog_in.html#comment3">Aliquam accumsan estsed ultricies</a>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                        <li class="last">
-                          <div class="image"><img src="{% static 'images/no_avatar_small.png' %}" alt="" /></div>
-                          <div class="title">
-                            <div class="meta"><div>by Admin</div></div>
-                            <a href="blog_in.html#comment3">Aliquam accumsan</a>
-                          </div>
-                          <div class="cleaner"><!--Cleaner--></div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <p>&copy; 2012 Collect from <a href="http://www.cssmoban.com/" title="网站模板" target="_blank">网站模板</a></p>
+              <p>{{ date.now }}  <a href="#" title="Talus主页" >Talus主页</a></p>
               <div class="cleaner"><!--Cleaner--></div>
               <!-- End Sidebar Content -->
             </div>
@@ -322,6 +189,7 @@
 
         {% block right_side %}{% endblock %}
 
+        {% if SITE_FOOTER %}
         <!-- Start Footer -->
         <div id="footer_side">
           <div class="footer_side">
@@ -373,6 +241,7 @@
         </div>
         <!-- End Footer -->
         <div class="cleaner"><!--Cleaner--></div>
+        {% endif %}
       </div>
 
       {% if SITE_STYLEBAR %}

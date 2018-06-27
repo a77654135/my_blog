@@ -118,7 +118,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 AUTH_USER_MODEL = "blog.User"
@@ -138,13 +138,14 @@ MEDIA_URL = "/static/uploads/"
 
 SITE_NAME = u"Talus 的主页"
 SITE_DESC = u"梦虽虚幻,却是自己的梦想；位虽低微,却是自己的岗位；屋虽简陋,却是自己的家；志虽渺小,却是自己的追求。"
-SITE_SOCIALS = True
-SITE_STYLEBAR = True
+SITE_SOCIALS = False
+SITE_STYLEBAR = False
 SITE_TOP_NAV = True
+SITE_FOOTER = False
 
 CATEGORY_PER_PAGE = 3
 GOODLINK_PER_PAGE = 10
-PICTURE_PER_PAGE = 15
+PICTURE_PER_PAGE = 9
 
 
 # 自定义日志输出信息
