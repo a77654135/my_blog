@@ -31,7 +31,7 @@ KindEditor.plugin('map', function(K) {
 				click : function(e) {
 					var geocoder = win.geocoder,
 						map = win.map,
-						center = map.getCenter().lat() + ',' + map.getCenter().lng(),
+						center = '31.2304324029,121.4737919321',
 						zoom = map.getZoom(),
 						maptype = map.getMapTypeId(),
 						url = 'http://maps.googleapis.com/maps/api/staticmap';

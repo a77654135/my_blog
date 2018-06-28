@@ -47,7 +47,7 @@ def global_settings(request):
 
     return locals()
 
-@method_decorator(cache_page(60 * 5), name='dispatch')
+# @method_decorator(cache_page(60 * 5), name='dispatch')
 class IndexView(View):
 
     def get(self, request):
